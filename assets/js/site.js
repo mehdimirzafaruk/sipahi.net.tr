@@ -81,44 +81,72 @@ class AureusApp {
     }
 
     heroAnimations() {
+        // Check if hero elements exist
+        const heroTitle = document.querySelector('.hero-title');
+        const heroSubtitle = document.querySelector('.hero-subtitle');
+        const heroButtons = document.querySelector('.hero-buttons');
+        
+        if (!heroTitle && !heroSubtitle && !heroButtons) {
+            console.log('Hero elements not found, skipping hero animations');
+            return;
+        }
+        
         // Hero content animations
         const tl = gsap.timeline();
         
-        tl.to('.hero-title', {
-            opacity: 1,
-            y: 0,
-            duration: 1.2,
-            ease: "power3.out"
-        })
-        .to('.hero-subtitle', {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            ease: "power2.out"
-        }, "-=0.5")
-        .to('.hero-buttons', {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            ease: "power2.out"
-        }, "-=0.");
+        if (heroTitle) {
+            tl.to('.hero-title', {
+                opacity: 1,
+                y: 0,
+                duration: 1.2,
+                ease: "power3.out"
+            });
+        }
+        
+        if (heroSubtitle) {
+            tl.to('.hero-subtitle', {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: "power2.out"
+            }, "-=0.5");
+        }
+        
+        if (heroButtons) {
+            tl.to('.hero-buttons', {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: "power2.out"
+            }, "-=0.3");
+        }
 
         // Floating animation for perfume bottle
-        gsap.to('.perfume-bottle', {
-            y: -20,
-            duration: 3,
+        const perfumeBottle = document.querySelector('.perfume-bottle');
+        if (perfumeBottle) {
+            gsap.to('.perfume-bottle', {
+                y: -20,
+                duration: 3,
             ease: "power1.inOut",
             repeat: -1,
             yoyo: true
-        });
+            });
+        }
 
         // Background particles animation
         this.createBackgroundParticles();
     }
 
     createBackgroundParticles() {
-        const canvas = document.createElement('canvas');
         const container = document.querySelector('.hero');
+        
+        // Check if hero element exists before creating particles
+        if (!container) {
+            console.log('Hero element not found, skipping background particles');
+            return;
+        }
+        
+        const canvas = document.createElement('canvas');
         canvas.style.position = 'absolute';
         canvas.style.top = '0';
         canvas.style.left = '0';
