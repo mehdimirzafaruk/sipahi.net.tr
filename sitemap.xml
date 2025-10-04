@@ -57,6 +57,14 @@
     <priority>0.5</priority>
   </url>
   
+  <!-- SSS Sayfası -->
+  <url>
+    <loc>https://siaphiperfume.com/faq.html</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
   <!-- Ürün Filtreleri -->
   <url>
     <loc>https://siaphiperfume.com/products.html?category=deluxe</loc>
