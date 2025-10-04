@@ -3,7 +3,7 @@
   
   <!-- Ana Sayfa -->
   <url>
-    <loc>https://siphahi.com/</loc>
+    <loc>https://siaphiperfume.com/</loc>
     <lastmod>2025-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -11,7 +11,7 @@
   
   <!-- Hakkımızda Sayfası -->
   <url>
-    <loc>https://siphahi.com/about.html</loc>
+    <loc>https://siaphiperfume.com/about.html</loc>
     <lastmod>2025-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -19,7 +19,7 @@
   
   <!-- Ürünler Sayfası -->
   <url>
-    <loc>https://siphahi.com/products.html</loc>
+    <loc>https://siaphiperfume.com/products.html</loc>
     <lastmod>2025-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -27,7 +27,7 @@
   
  <!-- Deluxe Kadın Ürün Sayfası -->
   <url>
-    <loc>https://siphahi.com/product-deluxe-kadin.html</loc>
+    <loc>https://siaphiperfume.com/product-deluxe-kadin.html</loc>
     <lastmod>2025-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -35,7 +35,7 @@
   
   <!-- Light Erkek Ürün Sayfası -->
   <url>
-    <loc>https://siphahi.com/product-light-erkek.html</loc>
+    <loc>https://siaphiperfume.com/product-light-erkek.html</loc>
     <lastmod>2025-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -43,7 +43,7 @@
   
   <!-- Blog Sayfası -->
   <url>
-    <loc>https://siphahi.com/blog.html</loc>
+    <loc>https://siaphiperfume.com/blog.html</loc>
     <lastmod>2025-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -51,7 +51,7 @@
   
   <!-- İletişim Sayfası -->
   <url>
-    <loc>https://siphahi.com/contact.html</loc>
+    <loc>https://siaphiperfume.com/contact.html</loc>
     <lastmod>2025-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -59,28 +59,28 @@
   
   <!-- Ürün Filtreleri -->
   <url>
-    <loc>https://siphahi.com/products.html?category=deluxe</loc>
+    <loc>https://siaphiperfume.com/products.html?category=deluxe</loc>
     <lastmod>2025-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://siphahi.com/products.html?category=light</loc>
+    <loc>https://siaphiperfume.com/products.html?category=light</loc>
     <lastmod>2025-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://siphahi.com/products.html?gender=erkek</loc>
+    <loc>https://siaphiperfume.com/products.html?gender=erkek</loc>
     <lastmod>2025-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://siphahi.com/products.html?gender=kadın</loc>
+    <loc>https://siaphiperfume.com/products.html?gender=kadın</loc>
     <lastmod>2025-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
