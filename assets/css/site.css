@@ -1112,6 +1112,14 @@ select:focus {
   gap: var(--space-3);
 }
 
+.space-y-3 > * + * {
+  margin-top: var(--space-3);
+}
+
+.transition-colors {
+  transition: color var(--transition-fast);
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
