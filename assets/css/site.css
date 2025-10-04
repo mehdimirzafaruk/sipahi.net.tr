@@ -41,10 +41,12 @@
   --gray-800: #1a1a1a;
   --gray-900: #0a0a0a;
   
-  /* Accent Colors */
-  --accent-purple: #8b5cf6;
-  --accent-blue: #06b6d4;
-  --accent-pink: #ec4899;
+           /* Accent Colors */
+           --accent-purple: #8b5cf6;
+           --accent-blue: #06b6d4;
+           --accent-pink: #ec4899;
+           --whatsapp-green: #25d366;
+           --whatsapp-light-green: #128c7e;
   --accent-orange: #f97316;
   
   /* Typography */
@@ -617,6 +619,20 @@ a:hover {
 .btn-primary:hover {
   transform: translateY(-3px);
   box-shadow: var(--shadow-glow);
+}
+
+/* WhatsApp Green Buttons */
+.btn-whatsapp {
+  background: linear-gradient(135deg, var(--whatsapp-green) 0%, var(--whatsapp-light-green) 100%);
+  color: var(--white);
+  border: 1px solid rgba(37, 211, 102, 0.3);
+  transition: var(--transition-smooth);
+}
+
+.btn-whatsapp:hover {
+  background: linear-gradient(135deg, var(--whatsapp-light-green) 0%, var(--whatsapp-green) 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(37, 211, 102, 0.3);
 }
 
 .btn-secondary {
