@@ -316,6 +316,17 @@ a:hover {
   letter-spacing: -0.02em;
 }
 
+.logo-img {
+  height: 45px;
+  width: auto;
+  object-fit: contain;
+  transition: transform var(--transition-fast);
+}
+
+.logo:hover .logo-img {
+  transform: scale(1.05);
+}
+
 .nav-menu {
   display: flex;
   list-style: none;
@@ -1722,6 +1733,144 @@ select:focus {
 
 .text-green-500 {
   color: #25d366 !important;
+}
+
+/* Gender Categories Section */
+.gender-categories-section {
+  padding: var(--space-32) 0;
+  background: var(--glass-gradient);
+  backdrop-filter: blur(20px);
+}
+
+.gender-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: var(--space-12);
+  margin-top: var(--space-12);
+}
+
+.gender-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-12);
+  backdrop-filter: blur(20px);
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.gender-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(139, 92, 246, 0.3);
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.gender-card.male-card:hover {
+  box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);
+}
+
+.gender-card.female-card:hover {
+  box-shadow: 0 20px 40px rgba(236, 72, 153, 0.3);
+}
+
+.gender-image-container {
+  position: relative;
+  text-align: center;
+  margin-bottom: var(--space-8);
+}
+
+.gender-image {
+  height: 200px;
+  width: auto;
+  object-fit: contain;
+  border-radius: var(--radius-lg);
+  transition: transform var(--transition-normal);
+}
+
+.gender-card:hover .gender-image {
+  transform: scale(1.05);
+}
+
+.gender-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  opacity: 0.3;
+  filter: blur(40px);
+  z-index: -1;
+  transition: all var(--transition-normal);
+}
+
+.male-glow {
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.4), transparent);
+}
+
+.female-glow {
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.4), transparent);
+}
+
+.gender-card:hover .gender-glow {
+  opacity: 0.6;
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+.gender-content {
+  text-align: center;
+}
+
+.gender-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: var(--space-4);
+  font-family: var(--font-display);
+}
+
+.gender-description {
+  color: var(--gray-300);
+  line-height: 1.6;
+  margin-bottom: var(--space-6);
+  font-size: 1rem;
+}
+
+.gender-features {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-8);
+  flex-wrap: wrap;
+}
+
+.feature-tag {
+  background: rgba(139, 92, 246, 0.2);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  color: var(--accent-purple);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.gender-card.male-card .feature-tag {
+  background: rgba(59, 130, 246, 0.2);
+  border-color: rgba(59, 130, 246, 0.3);
+  color: #60a5fa;
+}
+
+.gender-card.female-card .feature-tag {
+  background: rgba(236, 72, 153, 0.2);
+  border-color: rgba(236, 72, 153, 0.3);
+  color: #f472b6;
+}
+
+.gender-card .btn-primary {
+  width: 100%;
 }
 
 /* Floating WhatsApp Button */
