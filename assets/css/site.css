@@ -408,6 +408,29 @@ a:hover {
   font-size: 1.5rem;
   cursor: pointer;
   padding: var(--space-2);
+  transition: var(--transition-smooth);
+  position: relative;
+  z-index: 1001;
+}
+
+.mobile-menu-toggle.active {
+  color: var(--gold);
+}
+
+.mobile-menu-toggle .menu-icon {
+  transition: var(--transition-smooth);
+}
+
+.mobile-menu-toggle .close-icon {
+  display: none;
+}
+
+.mobile-menu-toggle.active .menu-icon {
+  display: none;
+}
+
+.mobile-menu-toggle.active .close-icon {
+  display: block;
 }
 
 /* Mobile Navigation */
@@ -433,6 +456,32 @@ a:hover {
   
   .nav-menu.active {
     left: 0;
+  }
+  
+  .mobile-menu-close {
+    position: absolute;
+    top: var(--space-6);
+    right: var(--space-6);
+    display: block;
+  }
+  
+  .mobile-close-btn {
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: var(--space-3);
+    border-radius: var(--radius-full);
+    transition: var(--transition-smooth);
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .mobile-close-btn:hover {
+    background: rgba(255, 215, 0, 0.2);
+    color: var(--gold);
+    transform: scale(1.1);
   }
   
   .nav-item a {
@@ -2177,6 +2226,10 @@ select:focus {
     border: none !important;
     padding: 0 !important;
     flex-direction: row !important;
+  }
+  
+  .mobile-menu-close {
+    display: none !important;
   }
   
   .hero-title {

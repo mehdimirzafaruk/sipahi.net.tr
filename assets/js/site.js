@@ -560,6 +560,7 @@ class AureusApp {
     mobileMenuSetup() {
         const mobileToggle = document.querySelector('.mobile-menu-toggle');
         const navMenu = document.querySelector('.nav-menu');
+        const mobileCloseBtn = document.querySelector('.mobile-close-btn');
         
         if (mobileToggle && navMenu) {
             // Mobile menu toggle functionality
@@ -583,6 +584,21 @@ class AureusApp {
                     });
                 }
             });
+
+            // Close button functionality
+            if (mobileCloseBtn) {
+                mobileCloseBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    navMenu.classList.remove('active');
+                    mobileToggle.classList.remove('active');
+                    gsap.to(navMenu, {
+                        height: 0,
+                        opacity: 0,
+                        duration: 0.3,
+                        ease: "power2.in"
+                    });
+                });
+            }
 
             // Close menu when clicking outside
             document.addEventListener('click', (e) => {
