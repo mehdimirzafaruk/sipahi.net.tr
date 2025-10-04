@@ -631,8 +631,22 @@ a:hover {
 
 .btn-whatsapp:hover {
   background: linear-gradient(135deg, var(--whatsapp-light-green) 0%, var(--whatsapp-green) 100%);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 32px rgba(37, 211, 102, 0.3);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 12px 40px rgba(37, 211, 102, 0.4);
+  animation: pulse-green 0.6s ease-in-out;
+}
+
+@keyframes pulse-green {
+  0% {
+    box-shadow: 0 8px 32px rgba(37, 211, 102, 0.3);
+  }
+  50% {
+    box-shadow: 0 12px 40px rgba(37, 211, 102, 0.5);
+    transform: translateY(-4px) scale(1.05);
+  }
+  100% {
+    box-shadow: 0 8px 32px rgba(37, 211, 102, 0.3);
+  }
 }
 
 .btn-secondary {
@@ -773,10 +787,10 @@ a:hover {
 
 .category-card {
   position: relative;
-  height: 500px;
+  height: 420px;
   border-radius: var(--radius-2xl);
   overflow: hidden;
-  cursor: pointer;
+  cursor-recommend: pointer;
   transition: all var(--transition-slow);
   background: var(--glass-gradient);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -804,12 +818,12 @@ a:hover {
   left: 0;
   right: 0;
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
-  padding: var(--space-12);
+  padding: var(--space-6);
 }
 
 .category-title {
-  font-size: 2.5rem;
-  margin-bottom: var(--space-4);
+  font-size: 2rem;
+  margin-bottom: var(--space-3);
   background: var(--primary-gradient);
   background-clip: text;
   -webkit-background-clip: text;
@@ -817,10 +831,10 @@ a:hover {
 }
 
 .category-description {
-  font-size: 1.125rem;
+  font-size: 1rem;
   color: var(--gray-200);
-  margin-bottom: var(--space-8);
-  line-height: 1.6;
+  margin-bottom: var(--space-4);
+  line-height: 1.5;
 }
 
 /* Fragrance Notes */
@@ -828,7 +842,7 @@ a:hover {
   display: flex;
   gap: var(--space-2);
   flex-wrap: wrap;
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-3);
 }
 
 .note {
@@ -2077,24 +2091,25 @@ select:focus {
   }
   
   .category-card {
-    padding: var(--space-6) !important;
+    padding: var(--space-4) !important;
     text-align: center !important;
+    height: 320px !important;
   }
   
   .category-card img {
-    height: 120px !important;
-    margin-bottom: var(--space-4) !important;
+    height: 100px !important;
+    margin-bottom: var(--space-2) !important;
   }
   
   .category-card h3 {
-    font-size: 1.25rem !important;
-    margin-bottom: var(--space-3) !important;
+    font-size: 1.1rem !important;
+    margin-bottom: var(--space-2) !important;
   }
   
   .category-card p {
-    font-size: 0.9rem !important;
-    line-height: 1.4 !important;
-    margin-bottom: var(--space-4) !important;
+    font-size: 0.85rem !important;
+    line-height: 1.3 !important;
+    margin-bottom: var(--space-2) !important;
   }
 }
 
