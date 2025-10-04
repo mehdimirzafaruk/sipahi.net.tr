@@ -48,6 +48,7 @@ class AureusApp {
         this.modalSetup();
         this.productCardAnimations();
         this.lazyLoadingSetup();
+        this.mobileMenuSetup();
     }
 
     heroAnimations() {
@@ -554,6 +555,105 @@ class AureusApp {
             style: 'currency',
             currency: currency
         }).format(amount);
+    }
+
+    mobileMenuSetup() {
+        const mobileToggle = document.querySelector('.mobile-menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        if (mobileToggle && navMenu) {
+            // Mobile menu toggle functionality
+            mobileToggle.addEventListener('click', (e) => {
+                e.preventDefault();
+                navMenu.classList.toggle('active');
+                mobileToggle.classList.toggle('active');
+                
+                // Animate menu slide down
+                if (navMenu.classList.contains('active')) {
+                    gsap.fromTo(navMenu, 
+                        { height: 0, opacity: 0 },
+                        { height: 'auto', opacity: 1, duration: 0.3, ease: "power2.out" }
+                    );
+                } else {
+                    gsap.to(navMenu, {
+                        height: 0,
+                        opacity: 0,
+                        duration: 0.3,
+                        ease: "power2.in"
+                    });
+                }
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!navMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
+                    navMenu.classList.remove('active');
+                    mobileToggle.classList.remove('active');
+                    gsap.to(navMenu, {
+                        height: 0,
+                        opacity: 0,
+                        duration: 0.3,
+                        ease: "power2.in"
+                    });
+                }
+            });
+
+            // Close menu when clicking on nav links
+            navMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                    mobileToggle.classList.remove('active');
+                    gsap.to(navMenu, {
+                        height: 0,
+                        opacity: 0,
+                        duration: 0.3,
+                        ease: "power2.in"
+                    });
+                });
+            });
+
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                    mobileToggle.classList.remove('active');
+                }
+            });
+        }
+
+        // Touch swipe for mobile menu
+        let startX = 0;
+        let startY = 0;
+        
+        document.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            if (!startX || !startY) return;
+            
+            const endX = e.changedTouches[0].clientX;
+            const endY = e.changedTouches[0].clientY;
+            
+            const diffX = startX - endX;
+            const diffY = Math.abs(startY - endY);
+            
+            // Swipe right to close menu
+            if (diffX > 100 && diffY < 100 && navMenu && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                mobileToggle.classList.remove('active');
+                gsap.to(navMenu, {
+                    height: 0,
+                    opacity: 0,
+                    duration: 0.3,
+                    ease: "power2.in"
+                });
+            }
+            
+            startX = 0;
+            startY = 0;
+        });
     }
 }
 
