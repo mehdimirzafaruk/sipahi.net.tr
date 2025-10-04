@@ -25,18 +25,47 @@ class AureusApp {
                 return;
             }
 
+            // Fallback timeout for GSAP loading
+            const timeoutId = setTimeout(() => {
+                if (!this.gsapLoaded) {
+                    this.gsapLoaded = true;
+                    console.log('GSAP loaded with timeout fallback');
+                    resolve();
+                }
+            }, 3000);
+
             const gsapScript = document.createElement('script');
             gsapScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js';
+            gsapScript.onerror = () => {
+                clearTimeout(timeoutId);
+                this.gsapLoaded = true;
+                console.log('GSAP failed to load, using fallback');
+                resolve();
+            };
             gsapScript.onload = () => {
-                const scrollTriggerScript = document.createElement('script');
-                scrollTriggerScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js';
-                scrollTriggerScript.onload = () => {
-                    gsap.registerPlugin(ScrollTrigger);
-                    this.gsapLoaded = true;
-                    this.scrollTriggerLoaded = true;
+                if (window.gsap) {
+                    const scrollTriggerScript = document.createElement('script');
+                    scrollTriggerScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js';
+                    scrollTriggerScript.onload = () => {
+                        if (window.ScrollTrigger) {
+                            gsap.registerPlugin(ScrollTrigger);
+                            this.scrollTriggerLoaded = true;
+                        }
+                        clearTimeout(timeoutId);
+                        this.gsapLoaded = true;
+                        resolve();
+                    };
+                    scrollTriggerScript.onerror = () => {
+                        clearTimeout(timeoutId);
+                        this.gsapLoaded = true;
+                        resolve();
+                    };
+                    document.head.appendChild(scrollTriggerScript);
+                } else {
+                    clearTimeout(timeoutId);
+                    this.gsapLoaded = false;
                     resolve();
-                };
-                document.head.appendChild(scrollTriggerScript);
+                }
             };
             document.head.appendChild(gsapScript);
         });
@@ -562,6 +591,34 @@ class AureusApp {
         const navMenu = document.querySelector('.nav-menu');
         const mobileCloseBtn = document.querySelector('.mobile-close-btn');
         
+        const animateMenu = (element, show) => {
+            if (this.gsapLoaded && window.gsap) {
+                if (show) {
+                    gsap.fromTo(element,
+                        { height: 0, opacity: 0 },
+                        { height: 'auto', opacity: 1, duration: 0.3, ease: "power2.out" }
+                    );
+                } else {
+                    gsap.to(element, {
+                        height: 0,
+                        opacity: 0,
+                        duration: 0.3,
+                        ease: "power2.in"
+                    });
+                }
+            } else {
+                // CSS fallback animation
+                element.style.transition = 'all 0.3s ease';
+                if (show) {
+                    element.style.height = 'auto';
+                    element.style.opacity = '1';
+                } else {
+                    element.style.height = '0';
+                    element.style.opacity = '0';
+                }
+            }
+        };
+        
         if (mobileToggle && navMenu) {
             // Mobile menu toggle functionality
             mobileToggle.addEventListener('click', (e) => {
@@ -569,20 +626,8 @@ class AureusApp {
                 navMenu.classList.toggle('active');
                 mobileToggle.classList.toggle('active');
                 
-                // Animate menu slide down
-                if (navMenu.classList.contains('active')) {
-                    gsap.fromTo(navMenu, 
-                        { height: 0, opacity: 0 },
-                        { height: 'auto', opacity: 1, duration: 0.3, ease: "power2.out" }
-                    );
-                } else {
-                    gsap.to(navMenu, {
-                        height: 0,
-                        opacity: 0,
-                        duration: 0.3,
-                        ease: "power2.in"
-                    });
-                }
+                // Animate menu
+                animateMenu(navMenu, navMenu.classList.contains('active'));
             });
 
             // Close button functionality
@@ -591,12 +636,7 @@ class AureusApp {
                     e.preventDefault();
                     navMenu.classList.remove('active');
                     mobileToggle.classList.remove('active');
-                    gsap.to(navMenu, {
-                        height: 0,
-                        opacity: 0,
-                        duration: 0.3,
-                        ease: "power2.in"
-                    });
+                    animateMenu(navMenu, false);
                 });
             }
 
@@ -605,12 +645,7 @@ class AureusApp {
                 if (!navMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
                     navMenu.classList.remove('active');
                     mobileToggle.classList.remove('active');
-                    gsap.to(navMenu, {
-                        height: 0,
-                        opacity: 0,
-                        duration: 0.3,
-                        ease: "power2.in"
-                    });
+                    animateMenu(navMenu, false);
                 }
             });
 
@@ -619,12 +654,7 @@ class AureusApp {
                 link.addEventListener('click', () => {
                     navMenu.classList.remove('active');
                     mobileToggle.classList.remove('active');
-                    gsap.to(navMenu, {
-                        height: 0,
-                        opacity: 0,
-                        duration: 0.3,
-                        ease: "power2.in"
-                    });
+                    animateMenu(navMenu, false);
                 });
             });
 
@@ -633,8 +663,41 @@ class AureusApp {
                 if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
                     navMenu.classList.remove('active');
                     mobileToggle.classList.remove('active');
+                    animateMenu(navMenu, false);
                 }
             });
+
+            // Touch gesture support for mobile menu
+            let touchStartY = 0;
+            let touchStartX = 0;
+            
+            navMenu.addEventListener('touchstart', (e) => {
+                touchStartY = e.touches[0].clientY;
+                touchStartX = e.touches[0].clientX;
+            }, { passive: true });
+            
+            navMenu.addEventListener('touchmove', (e) => {
+                if (!navMenu.classList.contains('active')) return;
+                
+                const touchCurrentY = e.touches[0].clientY;
+                const touchCurrentX = e.touches[0].clientX;
+                const diffY = touchStartY - touchCurrentY;
+                const diffX = touchCurrentX - touchStartX;
+                
+                // Swipe up to close menu
+                if (diffY > 50 && Math.abs(diffX) < 100) {
+                    navMenu.classList.remove('active');
+                    mobileToggle.classList.remove('active');
+                    animateMenu(navMenu, false);
+                }
+                
+                // Swipe left to close menu
+                if (diffX > 100 && Math.abs(diffY) < 50) {
+                    navMenu.classList.remove('active');
+                    mobileToggle.classList.remove('active');
+                    animateMenu(navMenu, false);
+                }
+            }, { passive: true });
         }
 
         // Touch swipe for mobile menu
