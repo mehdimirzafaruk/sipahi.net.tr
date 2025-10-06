@@ -619,84 +619,60 @@ class AureusApp {
         const navMenu = document.querySelector('.nav-menu');
         const mobileCloseBtn = document.querySelector('.mobile-close-btn');
         
-        const animateMenu = (element, show) => {
-            if (this.gsapLoaded && window.gsap) {
-                if (show) {
-                    gsap.fromTo(element,
-                        { height: 0, opacity: 0 },
-                        { height: 'auto', opacity: 1, duration: 0.3, ease: "power2.out" }
-                    );
-                } else {
-                    gsap.to(element, {
-                        height: 0,
-                        opacity: 0,
-                        duration: 0.3,
-                        ease: "power2.in"
-                    });
-                }
-            } else {
-                // CSS fallback animation
-                element.style.transition = 'all 0.3s ease';
-                if (show) {
-                    element.style.height = 'auto';
-                    element.style.opacity = '1';
-                } else {
-                    element.style.height = '0';
-                    element.style.opacity = '0';
-                }
-            }
-        };
+        if (!mobileToggle || !navMenu) {
+            console.log('Mobile menu elements not found');
+            return;
+        }
         
-        if (mobileToggle && navMenu) {
-            // Mobile menu toggle functionality
-            mobileToggle.addEventListener('click', (e) => {
+        // Mobile menu toggle functionality
+        mobileToggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const isActive = navMenu.classList.contains('active');
+            
+            if (isActive) {
+                navMenu.classList.remove('active');
+                mobileToggle.classList.remove('active');
+            } else {
+                navMenu.classList.add('active');
+                mobileToggle.classList.add('active');
+            }
+        });
+
+        // Close button functionality
+        if (mobileCloseBtn) {
+            mobileCloseBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                navMenu.classList.toggle('active');
-                mobileToggle.classList.toggle('active');
-                
-                // Animate menu
-                animateMenu(navMenu, navMenu.classList.contains('active'));
-            });
-
-            // Close button functionality
-            if (mobileCloseBtn) {
-                mobileCloseBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    navMenu.classList.remove('active');
-                    mobileToggle.classList.remove('active');
-                    animateMenu(navMenu, false);
-                });
-            }
-
-            // Close menu when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!navMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
-                    navMenu.classList.remove('active');
-                    mobileToggle.classList.remove('active');
-                    animateMenu(navMenu, false);
-                }
-            });
-
-            // Close menu when clicking on nav links
-            navMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    navMenu.classList.remove('active');
-                    mobileToggle.classList.remove('active');
-                    animateMenu(navMenu, false);
-                });
-            });
-
-            // Handle window resize
-            window.addEventListener('resize', () => {
-                if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
-                    navMenu.classList.remove('active');
-                    mobileToggle.classList.remove('active');
-                    animateMenu(navMenu, false);
-                }
+                navMenu.classList.remove('active');
+                mobileToggle.classList.remove('active');
             });
         }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
+                navMenu.classList.remove('active');
+                mobileToggle.classList.remove('active');
+            }
+        });
+
+        // Close menu when clicking on nav links
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                mobileToggle.classList.remove('active');
+            });
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                mobileToggle.classList.remove('active');
+            }
+        });
     }
 }
 
