@@ -32,7 +32,7 @@
   --light-gold: #ffec8c;
   --dark-gold: #cc9900;
   --gray-100: #2a2a2a;
-  --gray-200: #3a3a3a;
+  --gray-200: #ffffff;
   --gray-300: #4a4a4a;
   --gray-400: #5a5a5a;
   --gray-500: #6a6a6a;
@@ -361,7 +361,7 @@ a:hover {
 }
 
 .nav-item a {
-  color: var(--white);
+  color: #ffffff;
   font-size: 0.95rem;
   font-weight: 500;
   text-transform: uppercase;
@@ -533,11 +533,8 @@ a:hover {
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
-    radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(236, 72, 153, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba(6, 182, 212, 0.2) 0%, transparent 50%);
-  opacity: 0.6;
+  background: #000000;
+  opacity: 1;
 }
 
 .hero-background {
@@ -825,22 +822,20 @@ a:hover {
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.3));
   padding: var(--space-6);
+  z-index: 2;
 }
 
 .category-title {
   font-size: 2rem;
   margin-bottom: var(--space-3);
-  background: var(--primary-gradient);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #ffffff;
 }
 
 .category-description {
   font-size: 1rem;
-  color: var(--gray-200);
+  color: #ffffff;
   margin-bottom: var(--space-4);
   line-height: 1.5;
 }

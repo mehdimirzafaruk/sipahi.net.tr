@@ -133,8 +133,8 @@ class AureusApp {
             });
         }
 
-        // Background particles animation
-        this.createBackgroundParticles();
+        // Background particles animation - DISABLED
+        // this.createBackgroundParticles();
     }
 
     createBackgroundParticles() {
@@ -651,6 +651,7 @@ class AureusApp {
             // Mobile menu toggle functionality
             mobileToggle.addEventListener('click', (e) => {
                 e.preventDefault();
+                e.stopPropagation();
                 navMenu.classList.toggle('active');
                 mobileToggle.classList.toggle('active');
                 
@@ -662,6 +663,7 @@ class AureusApp {
             if (mobileCloseBtn) {
                 mobileCloseBtn.addEventListener('click', (e) => {
                     e.preventDefault();
+                    e.stopPropagation();
                     navMenu.classList.remove('active');
                     mobileToggle.classList.remove('active');
                     animateMenu(navMenu, false);
@@ -694,73 +696,7 @@ class AureusApp {
                     animateMenu(navMenu, false);
                 }
             });
-
-            // Touch gesture support for mobile menu
-            let touchStartY = 0;
-            let touchStartX = 0;
-            
-            navMenu.addEventListener('touchstart', (e) => {
-                touchStartY = e.touches[0].clientY;
-                touchStartX = e.touches[0].clientX;
-            }, { passive: true });
-            
-            navMenu.addEventListener('touchmove', (e) => {
-                if (!navMenu.classList.contains('active')) return;
-                
-                const touchCurrentY = e.touches[0].clientY;
-                const touchCurrentX = e.touches[0].clientX;
-                const diffY = touchStartY - touchCurrentY;
-                const diffX = touchCurrentX - touchStartX;
-                
-                // Swipe up to close menu
-                if (diffY > 50 && Math.abs(diffX) < 100) {
-                    navMenu.classList.remove('active');
-                    mobileToggle.classList.remove('active');
-                    animateMenu(navMenu, false);
-                }
-                
-                // Swipe left to close menu
-                if (diffX > 100 && Math.abs(diffY) < 50) {
-                    navMenu.classList.remove('active');
-                    mobileToggle.classList.remove('active');
-                    animateMenu(navMenu, false);
-                }
-            }, { passive: true });
         }
-
-        // Touch swipe for mobile menu
-        let startX = 0;
-        let startY = 0;
-        
-        document.addEventListener('touchstart', (e) => {
-            startX = e.touches[0].clientX;
-            startY = e.touches[0].clientY;
-        });
-
-        document.addEventListener('touchend', (e) => {
-            if (!startX || !startY) return;
-            
-            const endX = e.changedTouches[0].clientX;
-            const endY = e.changedTouches[0].clientY;
-            
-            const diffX = startX - endX;
-            const diffY = Math.abs(startY - endY);
-            
-            // Swipe right to close menu
-            if (diffX > 100 && diffY < 100 && navMenu && navMenu.classList.contains('active')) {
-                navMenu.classList.remove('active');
-                mobileToggle.classList.remove('active');
-                gsap.to(navMenu, {
-                    height: 0,
-                    opacity: 0,
-                    duration: 0.3,
-                    ease: "power2.in"
-                });
-            }
-            
-            startX = 0;
-            startY = 0;
-        });
     }
 }
 
